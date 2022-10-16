@@ -1,7 +1,8 @@
 ﻿#include <stdio.h>
+int i = 2, f = 1,n=0;
 int factorial(int n)
 {
-    int i = 2, f = 1;
+
     if (n < 0)
         return -1;
     while (i <= n)
@@ -14,7 +15,6 @@ int factorial(int n)
 
 int main()
 {
-    int n;
     scanf("%d", &n);
     n = factorial(n);
     printf("%d", n);
