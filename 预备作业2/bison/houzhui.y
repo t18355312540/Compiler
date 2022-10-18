@@ -33,18 +33,18 @@ void yyerror(const char* s );
 %%
 
 
-lines	:	lines expr '\n' { printf("%s\n", $2); }
-		|	lines '\n'
+lines	:	lines expr ';' { printf("%s\n", $2); }
+		|	lines ';'
 		|
 		;
 
-expr	:	expr ADD expr { $$ = (char*)malloc(strlen($1) + strlen($3) + 1); strcpy($$,$1); strcat($$,$3); strcat($$,"+"); }
-		|	expr SUB expr { $$ = (char*)malloc(strlen($1) + strlen($3) + 1); strcpy($$,$1); strcat($$,$3); strcat($$,"-"); }
-		|	expr MUL expr { $$ = (char*)malloc(strlen($1) + strlen($3) + 1); strcpy($$,$1); strcat($$,$3); strcat($$,"*"); }
-		|	expr DIV expr { $$ = (char*)malloc(strlen($1) + strlen($3) + 1); strcpy($$,$1); strcat($$,$3); strcat($$,"/"); }
-		|	'(' expr')' { (char*)malloc(strlen($2) + 1); strcpy($$, $2); strcat($$," ");}
-		|	NUMBER { $$ = (char*)malloc(strlen($1) + 1); strcpy($$, $1); strcat($$," ");}
-		|	ID { $$ = (char*)malloc(strlen($1) + 1); strcpy($$, $1); strcat($$," ");}
+expr	:	expr ADD expr { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,$1); strcat($$,$3); strcat($$,"+"); }
+		|	expr SUB expr { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,$1); strcat($$,$3); strcat($$,"-"); }
+		|	expr MUL expr { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,$1); strcat($$,$3); strcat($$,"*"); }
+		|	expr DIV expr { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,$1); strcat($$,$3); strcat($$,"/"); }
+		|	'(' expr')' { (char *)malloc(50*sizeof (char)); strcpy($$, $2); strcat($$," ");}
+		|	NUMBER { $$ = (char *)malloc(50*sizeof (char)); strcpy($$, $1); strcat($$," ");}
+		|	ID { $$ = (char *)malloc(50*sizeof (char)); strcpy($$, $1); strcat($$," ");}
 		;
 
 
@@ -58,7 +58,7 @@ int yylex()
 	char t;
 	while (1) {
 		t = getchar ();
-		if (t == ' ' ||	t== '\t')
+		if (t == ' ' ||	t== '\t' ||t=='\n') 
 			;
 		else if (( t >= '0' && t <= '9' )) {
 			int ti = 0;
